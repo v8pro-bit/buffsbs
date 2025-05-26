@@ -199,9 +199,7 @@
   transition: background-color 0.3s;
 }
 
-.match-card:hover {
-  background-color:  #444;
-}
+
     
 .ad-box-fixed {
   height: 600px;

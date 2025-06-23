@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -5,30 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BUFFSTREAMS | Stream Live NFL, NBA, NCAAB, MMA</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="output.css">
-     <link rel="shortcut icon" type="image/x-icon" href="https://icon-library.com/images/download-icon-black/download-icon-black-6.jpg"/>
+    <link rel="stylesheet" href="https://buffstreams.sbs/output.css">
+    <link rel="shortcut icon" type="image/x-icon"
+        href="https://icon-library.com/images/download-icon-black/download-icon-black-6.jpg" />
 </head>
 
 <body class="font-sans">
     <header>
         <h1 class="site-title">BUFFSTREAMS</h1>
-        <div class="divider"></div>
-        <div class="league-bar">
-            <a href="mma.html">MMA Streams</a>
-            <a href="boxing.html">BOXING Streams</a>
-            <a href="soccer.html">Other Streams</a>
-            <a href="nba.html">NBA Streams</a>
-            <a href="cfb.html">CFB Streams</a>
-            <a href="ncaab.html">NCAAB Streams</a>
-            <a href="wwe.html">WWE Streams</a>
-            <a href="mls.html">MLS Streams</a>
-            <a href="nfl.html">NFL Streams</a>
-            <a href="nhl.html">NHL Streams</a>
-            <a href="mlb.html">MLB Streams</a>
-            <a href="mlb.html">F1 Streams</a>
-            <a href="mlb.html">WNBA Streams</a>
-        </div>
-    </header>
+        </header>
     <div class="join-discord-banner">
         <a href="https://discord.gg/rGZJJ7KM" target="_blank">
             <img alt="Join BuffStreams Discord" class="discord-logo"
@@ -51,42 +37,21 @@
                 </div>
 
 
-
-
-                <a class="clickable-card" href="https://buffstreams.sbs/event/nba.html">
-                    <div class="match-card">
-                        <!-- Time -->
-                        <div class="match-time">
-                            <div class="match-hour">8:00</div>
-                            <div class="match-zone">PM ET</div>
-                            <div class="match-hour">Date - 23 June</div>
-                        </div>
-
-                        <!-- Teams -->
-                        <div class="match-teams">
-                            <div class="team-row">
-                                <img alt="Chicago White Sox" class="team-logo"
-                                    src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/National_Basketball_Association_logo.svg/158px-National_Basketball_Association_logo.svg.png">
-                                <span class="team-name">
-                                    Oklahoma City Thunder
-                                </span>
-                            </div>
-                            <div class="team-row">
-                                <img alt="Chicago White Sox" class="team-logo"
-                                    src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/National_Basketball_Association_logo.svg/158px-National_Basketball_Association_logo.svg.png">
-                                <span class="team-name">
-                                    Indiana Pacers
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Watch Button -->
-                        <div class="watch-section">
-                            <button class="watch-button">NBA</button>
-                        </div>
-
+                <div class="p-4 flex flex-wrap items-center justify-between gap-4">
+                    <select id="sportFilter" class="p-2 border border-gray-600 bg-black text-white rounded-md">
+                        <option value="All">All Sports</option>
+                    </select>
+                    <div class="flex items-center gap-2">
+                        <button id="prevPage" class="bg-gray-700 text-white px-3 py-1 rounded">Prev</button>
+                        <span id="pageInfo" class="text-white"></span>
+                        <button id="nextPage" class="bg-gray-700 text-white px-3 py-1 rounded">Next</button>
                     </div>
-                </a>
+                </div>
+
+                <div id="schedule" class="match-list space-y-8"></div>
+
+
+
 
 
 
@@ -148,28 +113,142 @@
         updateETTime();
         setInterval(updateETTime, 1000); 
     </script>
+
+
+    <script>
+        const EVENTS_PER_PAGE = 6;
+        let currentPage = 1;
+        let filteredEvents = [];
+        let allEvents = [];
+
+        function formatTime(unix) {
+            const date = new Date(unix * 1000);
+            return {
+                time: date.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                    timeZone: "America/New_York",
+                }),
+                date: date.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    timeZone: "America/New_York",
+                })
+            };
+        }
+
+        function renderSchedulePage() {
+            const schedule = document.getElementById("schedule");
+            schedule.innerHTML = "";
+
+            const start = (currentPage - 1) * EVENTS_PER_PAGE;
+            const end = start + EVENTS_PER_PAGE;
+            const pageEvents = filteredEvents.slice(start, end);
+
+            pageEvents.forEach(event => {
+                const { time, date } = formatTime(event.unix_timestamp);
+
+                const match = document.createElement("a");
+                match.className = "clickable-card";
+                match.href = `/player.html?frame=${event.channels[0]}` || "#";
+                match.target = "_blank";
+                match.innerHTML = `
+      <div class="match-card">
+        <div class="match-time">
+          <div class="match-hour">${time}</div>
+          <div class="match-zone">ET</div>
+          <div class="match-hour">${date}</div>
+        </div>
+        <div class="match-teams">
+          <div class="team-row">
+            <span class="team-name">${event.match}</span>
+          </div>
+        </div>
+        <div class="watch-section">
+          <button class="watch-button">${event.sport}</button>
+        </div>
+      </div>`;
+
+                schedule.appendChild(match);
+            });
+
+            document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${Math.ceil(filteredEvents.length / EVENTS_PER_PAGE)}`;
+            document.getElementById("prevPage").disabled = currentPage === 1;
+            document.getElementById("nextPage").disabled = end >= filteredEvents.length;
+        }
+
+        function populateFilter(events) {
+            const sportFilter = document.getElementById("sportFilter");
+            const sports = [...new Set(events.map(e => e.sport))];
+            sports.forEach(sport => {
+                const option = document.createElement("option");
+                option.value = sport;
+                option.textContent = sport;
+                sportFilter.appendChild(option);
+            });
+        }
+
+        function applyFilter() {
+            const selectedSport = document.getElementById("sportFilter").value;
+            filteredEvents = selectedSport === "All" ? [...allEvents] : allEvents.filter(e => e.sport === selectedSport);
+            currentPage = 1;
+            renderSchedulePage();
+        }
+
+        fetch("https://topembed.pw/api.php?format=json")
+            .then(res => res.json())
+            .then(data => {
+                const today = new Date().toISOString().split("T")[0];
+                allEvents = data.events[today] || [];
+                filteredEvents = [...allEvents];
+
+                populateFilter(allEvents);
+                renderSchedulePage();
+
+                document.getElementById("sportFilter").addEventListener("change", applyFilter);
+                document.getElementById("prevPage").addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderSchedulePage();
+                    }
+                });
+                document.getElementById("nextPage").addEventListener("click", () => {
+                    if ((currentPage * EVENTS_PER_PAGE) < filteredEvents.length) {
+                        currentPage++;
+                        renderSchedulePage();
+                    }
+                });
+            })
+            .catch(err => console.error("Error fetching API:", err));
+    </script>
+
+
 </body>
 <!-- Histats.com  (div with counter) -->
 <div id="histats_counter" style="display: none !important;"></div>
 
 <!-- Histats.com  START  (async) -->
 <script type="text/javascript">
-  var _Hasync = _Hasync || [];
-  _Hasync.push(['Histats.start', '1,4954898,4,511,95,18,00000000']);
-  _Hasync.push(['Histats.fasi', '1']);
-  _Hasync.push(['Histats.track_hits', '']);
+    var _Hasync = _Hasync || [];
+    _Hasync.push(['Histats.start', '1,4954898,4,511,95,18,00000000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
 
-  (function () {
-    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-    hs.src = ('//s10.histats.com/js15_as.js');
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-  })();
+    (function () {
+        var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+        hs.src = ('//s10.histats.com/js15_as.js');
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();
 </script>
 
 <noscript>
-  <a href="/" target="_blank">
-    <img src="//sstatic1.histats.com/0.gif?4954898&amp;101" alt="web stats" border="0" style="display: none !important;" />
-  </a>
+    <a href="/" target="_blank">
+        <img src="//sstatic1.histats.com/0.gif?4954898&amp;101" alt="web stats" border="0"
+            style="display: none !important;" />
+    </a>
 </noscript>
 <!-- Histats.com  END -->
+
 </html>

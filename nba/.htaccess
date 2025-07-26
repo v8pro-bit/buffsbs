@@ -1,9 +1,0 @@
-# Enable Rewrite Engine
-RewriteEngine On
-
-# If the requested path is not a file or directory
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Rewrite /nba to /nba/index.html
-RewriteRule ^([a-zA-Z0-9_-]+)$ $1/index.html [L]

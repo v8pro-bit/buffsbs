@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Boxing Streams | Free HD Fights on BuffStreams</title>
+  <meta name="description" content="Stream boxing matches live on BuffStreams – title fights, undercards, and PPVs in HD. No signup, no fees, just pure boxing action." />
+  <meta name="keywords" content="BuffStreams boxing, free boxing stream, live boxing tonight, title fight HD, PPV boxing online, watch boxing free, Canelo fight live, Tyson Fury stream, boxing undercard free" />
+  <style>body{font-family:'Segoe UI',sans-serif;background-color:#262626;margin:0;padding:0px}.site-header{padding:20px 20px;color:#fff;background-color:#111;border-bottom:1px solid #333;position:sticky;top:0;z-index:1000}#waustat-wrapper{display:none!important}.header-container{max-width:1200px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between}.site-name{font-size:26px;font-weight:bold;color:#22c55e}.nav-links{display:flex;gap:15px;flex-wrap:wrap;margin-top:0}.nav-links a{color:#fff;text-decoration:none;font-size:16px;padding:6px 12px;border-radius:4px;transition:background .3s ease,color .3s ease;font-weight:500}.nav-links a:hover{background:#333;color:#fff;border:1px solid #444}.container{max-width:1200px;margin:0 auto;background:#111;border-radius:12px;padding:20px;border:1px solid #333;margin-top:20px;margin-bottom:20px}.banner{text-align:center;margin-left:0px;margin-top:-25px;margin-bottom:15px}.banner h1{font-size:32px;color:white}.header h1{margin:0;font-size:26px}.subtext{color:white;font-size:14px}.agenda-date{background-color:#444;color:white;padding:12px;text-align:center;font-weight:bold;border-radius:8px;margin-top:20px;margin-bottom:15px;width:98%;border:1px solid #555}.search-box{position:relative;margin-bottom:20px}.search-box input{width:95.6%;padding:10px 40px 10px 14px;border-radius:8px;font-size:15px;background-color:#1f1f1f;border:1px solid #2c2c2c;color:white}.search-box .icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:white;pointer-events:none}.match-box{display:flex;align-items:center;justify-content:space-between;background:#1f1f1f;padding:15px 16px;margin:12px 0;border-radius:10px;transition:all 0.2s ease;cursor:pointer;border:1px solid #2c2c2c;width:97.5%}.match-box:hover{background-color:#2a2a2a}.match-info{display:flex;align-items:center;gap:10px}.match-info img{width:32px;height:32px;border-radius:50%;object-fit:cover;color:white}.match-league{font-size:16px;font-weight:600;display:flex;align-items:center;gap:6px;color:white}.match-time{background:#444;color:white;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:bold;white-space:nowrap;border:1px solid #555}@media(max-width:768px){.header-container{flex-direction:column;align-items:flex-start;gap:10px}.site-name{font-size:22px}.container{width:85%;margin:10px auto;padding:15px;margin-left:-5px}.agenda-date{width:93%;font-size:14px;padding:10px}.search-box input{width:84%;padding:10px 40px 10px 14px}.search-box .icon{right:15px;top:50%}.match-box{flex-direction:column;align-items:flex-start;width:100%;padding:12px;gap:8px;margin-top:50px;width:352px;margin-bottom:-40px}.match-info{gap:8px}.match-info img{width:28px;height:28px}.match-league{font-size:14px}.match-time{font-size:12px;padding:5px 10px}}@media(max-width:600px){.banner h1{font-size:24px}.banner{margin-left:0;padding:0 10px}}</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/" style="text-decoration: none; color: inherit;">
+        <div class="site-name">⚽BuffStreams.sbs</div>
+      </a>
+       <nav class="nav-links">
+        <a href="/competition/soccer">Soccer Streams</a>
+        <a href="/competition/a.m-football-streams">A.M Football Streams</a>
+        <a href="/competition/ufc-streams">UFC Streams</a>
+        <a href="/competition/nba-streams">NBA Streams</a>
+        <a href="/competition/baseball-streams">Baseball</a>
+        <a href="/competition/boxing-streams">Boxing</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+   
+  <div class="banner">
+   <h1>🥊 Free Boxing Matches Today – Watch Championship Bouts Live</h1>
+<p class="subtext">Stream all boxing title fights, undercards, and more in HD.</p>
+<p class="subtext">No subscription needed — just pure boxing excitement.</p>
+<p class="subtext">Stay ringside for every jab, hook, and knockout tonight.</p>
+<p class="subtext">Trusted source for live boxing streams, updated instantly.</p>
+  </div>
+  <div class="agenda-date" id="agenda-date"></div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search League And Teams..." />
+    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      ></path>
+    </svg>
+  </div>
+  <div id="matches"></div>
+
+</div>
+  </div>
+<script>
+  const apiUrl = "https://opensheet.elk.sh/1rAbb9FatONKR_xwYXQ-1H2FJ90JLe_gwlmWtBYvCQgs/Sheet1";
+  const matchesContainer = document.getElementById("matches");
+  const agendaDate = document.getElementById("agenda-date");
+  const searchInput = document.getElementById("searchInput");
+  let allMatches = [];
+
+  function encode(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      allMatches = data.filter(match => match.LEAGUE?.toLowerCase().includes("boxing"));
+
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = today.toLocaleDateString('en-US', options);
+      agendaDate.textContent = `Today - ${formattedDate} schedule`;
+
+      renderMatches(allMatches);
+    });
+
+  function renderMatches(data) {
+    matchesContainer.innerHTML = "";
+    data.forEach(match => {
+      const rawTime = match.TIME || '';
+      const logo1 = match['LOGO 1'] || 'https://a2msports.com/uploads/logo/default.png';
+      const logo2 = match['LOGO 2'] || 'https://a2msports.com/uploads/logo/default.png';
+      const team1 = match['TEAM 1'] || 'Team 1';
+      const team2 = match['TEAM 2'] || 'Team 2';
+      const league = match.LEAGUE || 'Unknown League';
+
+      const box = document.createElement("div");
+      box.className = "match-box";
+
+      const encodedIframe = encode(match.IFRAME || '');
+      const encodedTeam1 = encodeURIComponent(team1);
+      const encodedTeam2 = encodeURIComponent(team2);
+      const encodedLeague = encodeURIComponent(league);
+
+      box.onclick = () => {
+        window.location.href = `player.html?code=${encodedIframe}&team1=${encodedTeam1}&team2=${encodedTeam2}&league=${encodedLeague}`;
+      };
+
+      box.innerHTML = `
+        <div class="match-info">
+          <div class="match-league">
+            ${league}:
+            <img src="${logo1}" alt="logo 1" />
+            ${team1} vs ${team2}
+            <img src="${logo2}" alt="logo 2" />
+          </div>
+        </div>
+        <div class="match-time">${rawTime}</div>
+      `;
+
+      matchesContainer.appendChild(box);
+    });
+  }
+
+  searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
+    const filtered = allMatches.filter(match =>
+      match['TEAM 1']?.toLowerCase().includes(value) ||
+      match['TEAM 2']?.toLowerCase().includes(value) ||
+      match.LEAGUE?.toLowerCase().includes(value)
+    );
+    renderMatches(filtered);
+  });
+</script>
+
+
+
+<div id="waustat-wrapper">
+    <script id="_waunqo">
+        var _wau = _wau || [];
+        _wau.push(["dynamic", "4jxmn0843f", "nqo", "c4302bffffff", "small"]);
+    </script>
+    <script async src="//waust.at/d.js"></script>
+</div>
+</body></html>

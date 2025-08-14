@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /admin/
+Sitemap: https://buffstreams.sbs/totalsportek/sitemap.xml

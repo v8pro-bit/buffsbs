@@ -1,0 +1,269 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    /* Base font size for scalability */
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(#242625 25%, #303133 50%, #303133 50%, #242625 100%);
+    color: #a4a8a4;
+    font-size: 1rem;
+    /* Relative unit */
+    font-family: "Inter", sans-serif;
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+a {
+    color: #b1b4b1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+    color: #cbcdcb;
+    outline: none;
+    /* For modern browsers */
+    text-decoration: underline;
+}
+
+strong {
+    font-weight: 600;
+    color: #00acc1;
+}
+
+.container {
+    max-width: 40rem;
+    /* Flexible container size */
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+}
+
+.content .header {
+    padding: 4rem 1rem 0.5rem;
+    text-align: center;
+    z-index: 1;
+}
+
+.content .header p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #e5e5e5;
+    margin-top: 0.5rem;
+}
+
+.content .main {
+    position: relative;
+    margin: 1rem auto;
+    z-index: 1;
+    background: #1e201f;
+    border-radius: 0.7rem;
+    padding: 2rem;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.content .main ul.m-list {
+    margin: 1rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.content .main ul.m-list li {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #242625;
+    padding: 0.8rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0.4rem;
+    border: 1px solid #3e403f;
+    color: #777b77;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.content .main ul.m-list li span:first-child {
+    font-weight: 600;
+    color: #e5e5e5;
+    font-size: 1.1rem;
+}
+
+.content .main ul.m-list li span:last-child {
+    display: inline-flex;
+    align-items: center;
+    color: #c62828;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.content .main ul.m-list li span:last-child:before {
+    content: "";
+    display: inline-block;
+    background: #c62828;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.content .main ul.m-list li:hover {
+    background: #003a42;
+    border-color: #00acc1;
+}
+
+.content .main ul.m-list li:hover span:last-child {
+    color: #e5e5e5;
+}
+
+.content .main .notice {
+    background: #131514;
+    padding: 1.5rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.content .main .notice .start i {
+    font-size: 1.5rem;
+    color: #e5e5e5;
+}
+
+.content .main .notice .stop {
+    margin-top: 0.2rem;
+    font-size: 1rem;
+    color: #e5e5e5;
+}
+
+.content .main .notice .stop .twitter {
+    background: #00acc1;
+    border-radius: 0.3rem;
+    padding: 0.4rem 0.6rem;
+    display: inline-block;
+    color: #131514;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.content .main .notice .stop .twitter:hover {
+    background: #00d9f4;
+}
+
+.content .footer {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.faq img {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 700px) {
+    body {
+        font-size: 0.9rem;
+    }
+    .content .header p {
+        font-size: 1rem;
+    }
+    .content .main ul.m-list li {
+        padding: 0.6rem 0.8rem;
+    }
+}
+
+h1,
+h2 {
+    color: #ffffff;
+    /* MÃƒ u trÃ¡ÂºÂ¯ng */
+}
+
+h3 {
+    color: #e5e5e5;
+    /* MÃƒ u trÃ¡ÂºÂ¯ng nhÃ¡ÂºÂ¡t */
+}
+
+p {
+    line-height: 1.2;
+    /* GiÃ¡ÂºÂ£m line-height xuÃ¡Â»â€˜ng 1.2 thay vÃƒÂ¬ 1.4 */
+    margin-bottom: 0.5em;
+    /* GiÃ¡ÂºÂ£m khoÃ¡ÂºÂ£ng cÃƒÂ¡ch bottom margin cÃ¡Â»Â§a p */
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.1;
+    /* GiÃ¡ÂºÂ£m khoÃ¡ÂºÂ£ng cÃƒÂ¡ch giÃ¡Â»Â¯a cÃƒÂ¡c dÃƒÂ²ng cho tiÃƒÂªu Ã„â€˜Ã¡Â»Â */
+}
+
+.bntl {
+    background-color: #ff5722;
+    /* MÃƒ u cam Ã„â€˜Ã¡ÂºÂ­m, nÃ¡Â»â€¢i bÃ¡ÂºÂ­t */
+    color: white;
+    /* ChÃ¡Â»Â¯ trÃ¡ÂºÂ¯ng Ã„â€˜Ã¡Â»Æ’ tÃ†Â°Ã†Â¡ng phÃ¡ÂºÂ£n */
+    font-weight: bold;
+    /* TÃ„Æ’ng Ã„â€˜Ã¡Â»â„¢ dÃƒ y chÃ¡Â»Â¯ */
+    padding: 10px 20px;
+    /* TÃ„Æ’ng khoÃ¡ÂºÂ£ng cÃƒÂ¡ch giÃ¡Â»Â¯a chÃ¡Â»Â¯ vÃƒ  viÃ¡Â»Ân */
+    margin: 5px 0;
+    /* KhoÃ¡ÂºÂ£ng cÃƒÂ¡ch giÃ¡Â»Â¯a cÃƒÂ¡c mÃ¡Â»Â¥c */
+    border-radius: 8px;
+    /* LÃƒ m bo gÃƒÂ³c Ã„â€˜Ã¡Â»Æ’ trÃƒÂ´ng mÃ¡Â»Âm mÃ¡ÂºÂ¡i hÃ†Â¡n */
+    cursor: pointer;
+    /* ThÃƒÂªm biÃ¡Â»Æ’u tÃ†Â°Ã¡Â»Â£ng chuÃ¡Â»â„¢t chÃ¡Â»â€° tay */
+    text-align: center;
+    /* CÃ„Æ’n giÃ¡Â»Â¯a nÃ¡Â»â„¢i dung */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Ã„ÂÃ¡Â»â€¢ bÃƒÂ³ng Ã„â€˜Ã¡Â»Æ’ thÃƒÂªm chiÃ¡Â»Âu sÃƒÂ¢u */
+    transition: transform 0.2s, background-color 0.2s;
+    /* HiÃ¡Â»â€¡u Ã¡Â»Â©ng khi hover */
+}
+
+.content .main ul.m-list li.bntl:hover {
+    background-color: #f57c00;
+    /* Cam dÃ¡Â»â€¹u cho hiÃ¡Â»â€¡u Ã¡Â»Â©ng hover */
+    transform: scale(1.05);
+    /* PhÃƒÂ³ng to nhÃ¡ÂºÂ¹ khi hover */
+}
+
+.content .main ul.m-list li.bntl {
+    background-color: #4a4a4a;
+    /* Cam sÃƒÂ¡ng, dÃ¡Â»â€¹u mÃ¡ÂºÂ¯t */
+}
+
+/* Add this CSS to ensure responsive images */
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /* Optional: Center the image */
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0.5em 0;
+    /* GiÃ¡ÂºÂ£m khoÃ¡ÂºÂ£ng cÃƒÂ¡ch dÃ¡Â»Âc giÃ¡Â»Â¯a cÃƒÂ¡c thÃ¡ÂºÂ» */
+}
